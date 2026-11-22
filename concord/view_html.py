@@ -47,7 +47,7 @@ def layout(content, active="matching"):
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{SECTIONS[active][1]} · Concord</title><link rel="stylesheet" href="/style.css">
     <aside><div class="brand"><b>C</b><div><strong>Concord</strong>
-    <small>Рабочее пространство</small></div></div><div class="section">Работа</div>
+    <small>Сопоставление записей</small></div></div><div class="section">Работа</div>
     <nav aria-label="Разделы Concord">{"".join(links)}</nav>
     <div class="workspace-mark"><b>C</b><div>Concord<small>Локальное приложение</small></div></div></aside>
     <main><header><i></i>Контур «Основной»<details class="desk-help"><summary>Справка</summary><div><b>Как работать с Concord</b><p>Откройте «Источники данных», проверьте поля в «Правилах» и запустите новое сопоставление. К результатам и решениям можно вернуться через историю.</p></div></details></header><article>{content}</article></main></html>"""
