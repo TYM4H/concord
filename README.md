@@ -18,7 +18,7 @@ python3 -m concord.viewer local-runs/demo/result.jsonl
 
 ## Документация
 
-- [Concord на размеченном миллионе — отчёт со скриншотами](docs/pipeline/report.html). В отчёте показаны примеры из PostgreSQL и MySQL, расчёт балла, строка CSV и влияние опечаток и тёзок на качество. Скачайте HTML и откройте в браузере. [Результаты прогона в JSON](docs/pipeline/realistic-million-current.json)
+- [Concord на размеченном миллионе — отчёт со скриншотами](docs/pipeline/report.html). На примере одного клиента показан путь от записей в PostgreSQL и MySQL до пары исходных ID в CSV. HTML можно скачать и открыть без интернета. [Результаты прогона в JSON](docs/pipeline/realistic-million-current.json)
 - [Руководство аналитика](docs/analyst-guide.md) — подключение источников, настройка порога, сравнение кандидатов и экспорт CSV.
 - [Справочник по CLI и правилам](docs/cli.md) — команды, связанные таблицы, форматы данных и формула балла.
 - [Руководство разработчика](docs/development.md) — окружение, модули, тесты и воспроизведение экспериментов.
