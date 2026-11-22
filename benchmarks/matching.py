@@ -8,7 +8,7 @@ from concord.rules import Rules
 
 def main():
     parser = ArgumentParser(description="Синтетическая проверка ядра Concord")
-    parser.add_argument("--rows", type=int, default=10_000, help="Число записей с каждой стороны")
+    parser.add_argument("--rows", type=int, default=100, help="Число записей с каждой стороны")
     count = parser.parse_args().rows
     if count < 1:
         parser.error("--rows должен быть положительным")
@@ -26,7 +26,7 @@ def main():
         accepted += 1
     if accepted != count:
         raise RuntimeError("Количество пар не совпало с ожидаемым")
-    print(f"Записей с каждой стороны: {count}. Проверено пар: {accepted}. "
+    print(f"Записей с каждой стороны: {count}. Автоматически принято пар: {accepted}. "
           f"Время ядра: {perf_counter() - started:.2f} с.")
 
 

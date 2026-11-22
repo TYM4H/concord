@@ -4,8 +4,8 @@
 .rules-grid h2 { font-size: 16px; line-height: 1.35; margin: 0; letter-spacing: -.015em }
 .rule-panel-heading, .rule-identifiers { padding: 18px 20px }
 .rule-panel-heading > small, .rule-identifiers > small, .rule-threshold > small { margin-top: 5px }
-.rule-switch-row, .rule-block-limit, .rule-threshold, .rule-explanation { padding: 13px 20px; border-top: 1px solid var(--line) }
-.rule-switch-row, .rule-block-limit, .rule-threshold label { display: flex; align-items: center; gap: 12px }
+.rule-switch-row, .rule-threshold, .rule-explanation { padding: 13px 20px; border-top: 1px solid var(--line) }
+.rule-switch-row, .rule-threshold label { display: flex; align-items: center; gap: 12px }
 .rule-switch-row { cursor: pointer; overflow-wrap: anywhere }
 .rule-switch-row:hover { background: var(--surface) }
 .rule-switch { flex: none; appearance: none; margin: 0; width: 34px; height: 19px; border: 1px solid #708784; border-radius: 20px; background: #82928f; cursor: pointer }
@@ -30,8 +30,7 @@
 .rule-identifiers dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 10px; margin: 12px 0 0 }
 .rule-identifiers dt { font-size: 12px; color: var(--muted) }
 .rule-identifiers dd { margin: 0; min-width: 0 }
-.rule-block-limit, .rule-threshold label { justify-content: space-between; flex-wrap: wrap }
-.rule-block-limit span { flex: 1 1 140px; line-height: 1.45 }
+.rule-threshold label { justify-content: space-between; flex-wrap: wrap }
 .rule-threshold label > span:last-child { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap }
 .rule-threshold .rule-number { width: 62px }
 @media (max-width: 1050px) {

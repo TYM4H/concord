@@ -57,7 +57,7 @@ def read_results(path):
         rules = header["rules"]
         fields = {(f["left"], f["right"]): (f["mode"], f["weight"]) for f in rules["fields"]}
         if ((rules["left_id"], rules["right_id"]) != (LEFT_ID, RIGHT_ID) or
-                (rules["review"], rules["accept"], rules["block_limit"]) != (65, 85, 64) or
+                (rules["review"], rules["accept"]) != (65, 85) or
                 fields != {NAME: ("text", 70), EMAIL: ("exact", 30)}):
             raise ValueError("Правила запуска отличаются от контрольной конфигурации")
         for line in stream:

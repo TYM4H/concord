@@ -12,12 +12,12 @@ def edited_rules(rules, params):
             raise ValueError("Форма правил неполна. Откройте правила запуска повторно.")
         return values[0]
 
-    def number(key, convert=float):
+    def number(key):
         raw = value(key)
         try:
-            return convert(raw)
+            return float(raw)
         except (TypeError, ValueError, OverflowError) as exc:
-            raise ValueError("Проверьте числовые значения весов, порогов и лимита записей.") from exc
+            raise ValueError("Проверьте числовые значения весов и порогов.") from exc
 
     fields = []
     for i, field in enumerate(rules.fields):
@@ -30,9 +30,8 @@ def edited_rules(rules, params):
                            block_on_conflict=parse_conflict(value(policy)) if policy in params else field.block_on_conflict))
     review = number("review")
     accept = number("accept")
-    block_limit = number("block_limit", int)
     return Rules.parse(dict(left_id=rules.left_id, right_id=rules.right_id, fields=fields,
-                            review=review, accept=accept, block_limit=block_limit))
+                            review=review, accept=accept))
 
 
 def rules_page(rules, params):
@@ -89,6 +88,5 @@ def rules_page(rules, params):
         <div class="rule-threshold"><span class="badge unmatched">Без пары</span>
         <small>Кандидатов нет или каждый из них набрал меньше нижнего порога кандидата.</small></div></section>
         <section><div class="rule-panel-heading"><h2>Отбор кандидатов</h2></div>
-        <label class="rule-block-limit"><span>Максимум записей с общим значением в каждом источнике</span>
-        <input class="rule-number" type="number" name="block_limit" required min="1" step="1" value="{rules.block_limit}"></label></section>
+        <small>В сравнение входят все пары с общим значением хотя бы одного выбранного поля.</small></section>
         </div></div></form>""", active="rules")

@@ -94,18 +94,13 @@ def _left_records(db):
         yield left_id, _field_values(group)
 
 
-def block_eligible(counts, limit):
-    return min(counts) > 0 and max(counts) <= limit
-
-
-def candidates(db, fields, limit):
+def candidates(db, fields):
     ids = set()
     for index, variants in fields.items():
-        for norm, item in variants.items():
-            if block_eligible(item["counts"], limit):
-                matches = db.execute("SELECT id FROM token WHERE side=1 AND field=? AND norm=?",
-                                     (index, norm))
-                ids.update(row[0] for row in matches)
+        for norm in variants:
+            matches = db.execute("SELECT id FROM token WHERE side=1 AND field=? AND norm=?",
+                                 (index, norm))
+            ids.update(row[0] for row in matches)
     return sorted(ids)
 
 
@@ -113,7 +108,7 @@ def results(db, rules, record_misses=False):
     for left_id, left in _left_records(db):
         found = False
         best = None
-        for right_id in candidates(db, left, rules.block_limit):
+        for right_id in candidates(db, left):
             result = compare(rules, left, values(db, 1, right_id))
             result.update(left_id=json.loads(left_id), right_id=json.loads(right_id))
             if result["status"] == "below_threshold":

@@ -41,7 +41,7 @@ class DiagnosticScreenTests(unittest.TestCase):
         self.assertIn('/compare?n=1', search)
         from concord.review_screen import comparison_page
         alternatives = comparison_page(self.review, self.rules, 1, "csrf", self.snapshot)
-        self.assertIn("Вариантов: 1", alternatives)
+        self.assertIn("Вариантов: 2", alternatives)
         self.assertIn("18.54%", alternatives)
         self.assertNotIn('action="/decision"', alternatives)
         self.assertIn("&lt;Леонид&gt;", search)
@@ -54,15 +54,14 @@ class DiagnosticScreenTests(unittest.TestCase):
         self.assertIn("46.46 п. п.", below)
         self.assertIn("Расхождение · допускается правилами", below)
         self.assertIn("прошло отбор", below)
-        self.assertIn("превышен предел частоты", below)
+        self.assertNotIn("превышен предел частоты", below)
 
-    def test_unscored_record_shows_excluded_key_and_no_score(self):
-        blocked = self.page({"right": ['"1"']})
-        self.assertIn("Пара не попала в кандидаты", blocked)
-        self.assertIn("превышен предел частоты", blocked)
-        self.assertIn("слева 1, справа 2", blocked)
-        self.assertIn("Пропуск значения", blocked)
-        self.assertNotIn("вклад ", blocked)
+    def test_common_value_shows_scored_comparison(self):
+        page = self.page({"right": ['"1"']})
+        self.assertIn("Пара прошла отбор", page)
+        self.assertIn("3.54%", page)
+        self.assertIn("слева 1, справа 2", page)
+        self.assertIn("Пропуск значения", page)
         self.assertIsNone(self.page({"right": ["404"]}))
 
     def test_legacy_and_right_orphan(self):

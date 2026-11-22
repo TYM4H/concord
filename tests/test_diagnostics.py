@@ -68,7 +68,7 @@ class DiagnosticTests(unittest.TestCase):
                 search_right(self.db, self.rules, "", bad)
 
     def test_blocked_by_frequency_and_no_keys_in_common(self):
-        data = explain_pair(self.db, self.rules, '"01"', '"003"')
+        data = explain_pair(self.db, self.rules, '"01"', '"003"', legacy_limit=1)
         self.assertEqual((data["stage"], data["score"]), ("not_candidate", None))
         self.assertEqual(data["fields"][2]["shared"], ["москва"])
         self.assertEqual(data["fields"][2]["eligible"], [])

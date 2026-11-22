@@ -5,7 +5,7 @@ from .view_html import html
 FIELDS = (
     "left_kind", "left_path", "left_id", "right_kind", "right_path", "right_id",
     "field_left", "field_right", "field_mode", "field_weight", "field_block_on_conflict",
-    "review", "accept", "block_limit",
+    "review", "accept",
 )
 
 

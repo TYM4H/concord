@@ -68,7 +68,7 @@ def scores_page(db, snapshot, params):
         <div>{' &nbsp; '.join(links)}</div></footer></section>""")
 
 
-def missed_pair_page(snapshot, rules, params):
+def missed_pair_page(snapshot, rules, params, *, legacy_limit=None):
     if snapshot is None:
         return None
     left, right = params.get("left", []), params.get("right", [])
@@ -76,7 +76,7 @@ def missed_pair_page(snapshot, rules, params):
         return None
     if not snapshot.execute("SELECT 1 FROM missed WHERE left_id=? AND right_id=?", (left[0], right[0])).fetchone():
         return None
-    comparison = explain_pair(snapshot, rules, left[0], right[0])
+    comparison = explain_pair(snapshot, rules, left[0], right[0], legacy_limit=legacy_limit)
     if comparison is None:
         return None
     return layout('<a href="/scores?group=below">← Сравнения ниже нижнего порога</a>'

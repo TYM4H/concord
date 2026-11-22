@@ -94,14 +94,13 @@ def explanation(result, rules, *, pair_only=False):
         <div><small>Правая запись · {html(rules.right_id)}</small><code>{identifier(result['right_id'])}</code></div>
         {'<span class="badge unmatched">Ниже нижнего порога</span>' if pair_only else badge('unmatched')}</div>
         <section class="diagnostic-verdict"><h2>{heading}</h2><p>{reason}</p>{progress}</section>
-        <section class="diagnostic-evidence"><div class="evidence-title"><h2>Сравнение полей</h2>
-        <small>Максимальное число записей с одним значением в каждом источнике — {rules.block_limit}.</small></div>
+        <section class="diagnostic-evidence"><div class="evidence-title"><h2>Сравнение полей</h2></div>
         <div class="scroll" tabindex="0" role="region" aria-label="Сравнение полей">
         <table><thead><tr><th>Признак</th><th>Слева</th><th>Справа</th><th>Основание</th></tr></thead>
         <tbody>{''.join(rows)}</tbody></table></div></section>"""
 
 
-def diagnosis_page(review_db, rules, n, params, snapshot, unavailable_message=""):
+def diagnosis_page(review_db, rules, n, params, snapshot, unavailable_message="", *, legacy_limit=None):
     row = review_db.execute("""SELECT left_key, body FROM result
                                WHERE n=? AND status='unmatched' AND left_key IS NOT NULL""", (n,)).fetchone()
     if row is None:
@@ -125,7 +124,7 @@ def diagnosis_page(review_db, rules, n, params, snapshot, unavailable_message=""
     if page < 1:
         raise ValueError("Номер страницы должен быть положительным")
     if "right" in params:
-        result = explain_pair(snapshot, rules, left_key, params["right"][0])
+        result = explain_pair(snapshot, rules, left_key, params["right"][0], legacy_limit=legacy_limit)
         if result is None:
             return None
         back = diagnostic_link(n, query, page)

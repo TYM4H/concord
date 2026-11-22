@@ -91,9 +91,7 @@ class MatchTests(unittest.TestCase):
                          {(i, j) for i in ("1", 1) for j in (8, 9)})
         self.assertTrue(all(r["status"] == "review" and r["score"] == 63.64 for r in rows))
         self.assertEqual(rows[0]["evidence"][0]["right_values"]["aa"]["counts"], [2, 2])
-        blocked = compare(left, right, block_limit=1)
-        self.assertEqual(len(blocked), 4)
-        self.assertTrue(all(r["status"] == "unmatched" for r in blocked))
+        self.assertEqual(compare(left, right, review=60, block_limit=1), rows)
 
     def test_below_threshold_explains_closest_candidate(self):
         row, orphan = compare([{"a.id": 5, "a.refs.code": "A"}],

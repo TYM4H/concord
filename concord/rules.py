@@ -20,12 +20,17 @@ class Rules:
     fields: tuple[Field, ...]
     review: float = 65
     accept: float = 85
-    block_limit: int = 64
 
     @classmethod
     def parse(cls, data):
         if not isinstance(data, dict):
             raise ValueError("Настройки должны быть объектом JSON")
+        # Старые профили содержат прежнюю настройку отбора. Новые расчёты её не используют.
+        if "block_limit" in data:
+            data = data.copy()
+            legacy_limit = data.pop("block_limit")
+            if type(legacy_limit) is not int or legacy_limit < 1:
+                raise ValueError("Некорректный предел частоты в прежних настройках")
         try:
             fields = tuple(Field(**field) for field in data["fields"])
             rules = cls(**{**data, "fields": fields})
@@ -50,8 +55,6 @@ class Rules:
             raise ValueError("Пороги должны быть числами")
         if not 0 < rules.review < rules.accept <= 100:
             raise ValueError("Требуется 0 < review < accept <= 100")
-        if type(rules.block_limit) is not int or rules.block_limit < 1:
-            raise ValueError("block_limit должен быть положительным целым числом")
         return rules
 
 

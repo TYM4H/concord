@@ -65,8 +65,7 @@ def new_page(run, rules, token, error="", form=None, profiles=(), *, add_row=Fal
         <div class="scroll"><table><thead><tr><th>Поле слева</th><th>Поле справа</th><th>Сравнение</th><th>Вес</th><th>При расхождении</th></tr></thead>
         <tbody>{''.join(field_rows)}</tbody></table></div><button type="submit" formnovalidate formaction="/new/fields">Добавить строку</button></section><section class="form-group"><h2>Условия решения</h2>
         <div class="new-limits"><label>Нижний порог кандидата, %<input required name="review" type="number" step="any" value="{val('review', rules.review)}"></label>
-        <label>Автосовпадение, %<input required name="accept" type="number" step="any" value="{val('accept', rules.accept)}"></label>
-        <label>Предел частоты<input required name="block_limit" type="number" min="1" value="{val('block_limit', rules.block_limit)}"></label></div></section>
+        <label>Автосовпадение, %<input required name="accept" type="number" step="any" value="{val('accept', rules.accept)}"></label></div></section>
         <button class="primary-action" type="submit">Запустить сопоставление</button></form>""")
 
 
@@ -117,7 +116,7 @@ def create_run(workspace, run, form):
                    block_on_conflict=parse_conflict(policy))
               for a, b, m, w, policy in zip(*columns) if a.strip() or b.strip()]
     rules = Rules.parse(dict(left_id=get("left_id"), right_id=get("right_id"), fields=fields,
-                             review=float(get("review")), accept=float(get("accept")), block_limit=int(get("block_limit"))))
+                             review=float(get("review")), accept=float(get("accept"))))
     info = {}
     inputs = []
     with ExitStack() as stack:

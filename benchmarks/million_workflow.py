@@ -63,7 +63,7 @@ def workflow(base, profiles, folder, *, duplicates=False):
     start = perf_counter()
     body, _ = page("/sources/connect")
     token = Inputs(body).fields["token"][0]
-    params = dict(token=token, review=65, accept=85, block_limit=64)
+    params = dict(token=token, review=65, accept=85)
     for side, key in (("left", "person_id"), ("right", "customer_id")):
         path = profiles[side].resolve(strict=True)
         info = json.loads(path.read_text())

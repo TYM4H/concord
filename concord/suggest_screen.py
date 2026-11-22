@@ -111,7 +111,7 @@ def suggest_page(run, form, token):
             <label>При расхождении{control}</label>
             <details><summary>Основания подбора</summary><small>{reasons}</small></details></td></tr>""")
     saved = {k: _single(form, k) for k in ("left_kind", "right_kind", "left_path", "right_path",
-                                            "review", "accept", "block_limit")}
+                                            "review", "accept")}
     saved.update(left_id=draft["left_id"], right_id=draft["right_id"],
                  token=token, suggestion_draft=json.dumps({k: v for k, v in draft.items() if k != "fields"},
                                                          ensure_ascii=False))

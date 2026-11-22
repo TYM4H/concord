@@ -1,7 +1,7 @@
 """Поиск записей справа и разбор отсева по снимку выбранного запуска."""
 import json
 
-from .matching import block_eligible, values
+from .matching import values
 from .rules import compare, normalize
 
 
@@ -78,7 +78,7 @@ def scored_miss(rules, left, right, stored_score):
     return comparison
 
 
-def explain_pair(db, rules, left_key, right_key):
+def explain_pair(db, rules, left_key, right_key, *, legacy_limit=None):
     """Диагностика одной пары для непарной левой записи. Ключи — типизированные JSON-ID."""
     count, = db.execute("""
         SELECT COUNT(*) FROM entity WHERE (side=0 AND id=?) OR (side=1 AND id=?)
@@ -103,7 +103,7 @@ def explain_pair(db, rules, left_key, right_key):
 
     for field in fields:
         field["eligible"] = [norm for norm in field["shared"]
-                             if block_eligible(field["left_values"][norm]["counts"], rules.block_limit)]
+                             if legacy_limit is None or max(field["left_values"][norm]["counts"]) <= legacy_limit]
     if any(field["eligible"] for field in fields) != (attempt is not None):
         raise ValueError("Журнал сравнений расходится с результатом отбора по сохранённым частотам")
     return dict(left_id=json.loads(left_key), right_id=json.loads(right_key),

@@ -340,7 +340,7 @@ def serve(workspace, port):
                 elif route == "/scores":
                     body = scores_page(db, run.snapshot, params)
                 elif route == "/scored-pair":
-                    body = missed_pair_page(run.snapshot, rules, params)
+                    body = missed_pair_page(run.snapshot, rules, params, legacy_limit=run.header["rules"].get("block_limit"))
                 elif route in ("/pair", "/compare"):
                     n = int(params.get("n", ["0"])[0])
                     body = (comparison_page(db, rules, n, token, run.snapshot,
@@ -349,7 +349,8 @@ def serve(workspace, port):
                 elif route == "/diagnose":
                     n = int(params.get("n", ["0"])[0])
                     try:
-                        body = diagnosis_page(db, rules, n, params, run.snapshot, run.message)
+                        body = diagnosis_page(db, rules, n, params, run.snapshot, run.message,
+                                              legacy_limit=run.header["rules"].get("block_limit"))
                     except (ValueError, sqlite3.DatabaseError) as exc:
                         self.page(layout(f'<h1>Диагностика недоступна</h1><p>{html(exc)}</p>'
                                          '<a href="/?status=unmatched&amp;side=left">К записям слева</a>'),

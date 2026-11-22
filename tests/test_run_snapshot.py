@@ -9,7 +9,7 @@ from threading import Barrier
 import unittest
 from unittest.mock import patch
 
-from concord.matching import block_eligible, match, values
+from concord.matching import match, values
 from concord.rules import Rules
 from concord.run_snapshot import open_snapshot, snapshot_name, SnapshotUnavailable
 from concord.runs import export_run
@@ -49,15 +49,14 @@ class SnapshotTests(unittest.TestCase):
         snapshot = self.root / snapshot_name(header["diagnostics"]["id"])
         self.assertEqual(stat.S_IMODE(snapshot.stat().st_mode), 0o600)
 
-    def test_actual_frequency_limit_and_empty_fields(self):
+    def test_common_value_and_empty_fields(self):
         self.left = [{"id": 1, "tag": "one"}, {"id": 2}]
         self.right = [{"key": i, "tag": "ONE"} for i in range(3)]
         header, *_ = self.create()
         with closing(open_snapshot(self.path, header)) as db:
             counts = values(db, 0, "1")[1]["one"]["counts"]
             self.assertEqual(counts, [1, 3])
-            self.assertFalse(block_eligible(counts, self.rules.block_limit))
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM missed").fetchone(), (0,))
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM missed").fetchone(), (3,))
             self.assertEqual(values(db, 0, "2"), {})
 
     def test_v1_matched_record_discloses_partial_list_but_unmatched_list_is_complete(self):

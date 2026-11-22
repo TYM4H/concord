@@ -13,7 +13,9 @@ ALGORITHM = "blocking-frequency-score-v1"
 
 
 def _algorithm(header):
-    fields = header.get("rules", {}).get("fields", ())
+    if "block_limit" not in header["rules"]:
+        return "all-shared-values-score-v1"
+    fields = header["rules"].get("fields", ())
     if any(field.get("block_on_conflict", True) is False for field in fields):
         return "blocking-frequency-score-field-conflicts-v1"
     return ALGORITHM

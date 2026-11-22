@@ -19,12 +19,12 @@ class RulesScreenTests(unittest.TestCase):
         self.assertIn('name="mode_0" value="text" checked', page)
         self.assertNotIn('name="mode_1" value="text" checked', page)
         for value in ("каталог.id", "справочник.id", 'value="52.5"', 'value="88"',
-                      'value="8"', "название &lt;старое&gt;"):
+                      "название &lt;старое&gt;"):
             self.assertIn(value, page)
 
     def test_draft_keeps_original_fields_and_old_settings(self):
         draft = edited_rules(self.rules, self.form)
-        self.assertEqual((draft.review, draft.accept, draft.block_limit), (51.25, 82.75, 5))
+        self.assertEqual((draft.review, draft.accept), (51.25, 82.75))
         self.assertEqual(draft.fields[0].left, "название <старое>")
         self.assertEqual([(f.mode, f.weight) for f in draft.fields], [("exact", 17.5), ("text", 32.5)])
         self.assertEqual((self.rules.review, self.rules.fields[0].mode), (52.5, "text"))
@@ -37,7 +37,7 @@ class RulesScreenTests(unittest.TestCase):
 
     def test_invalid_form_rejected(self):
         for changes in (dict(review=["90"]), dict(accept=["nan"]), dict(weight_1=["0"]),
-                        dict(mode_0=["unknown"]), dict(weight_0=[]), dict(block_limit=["3", "4"]),
+                        dict(mode_0=["unknown"]), dict(weight_0=[]),
                         dict(block_on_conflict_0=["unknown"]), dict(block_on_conflict_0=["score_only", "block"])):
             with self.subTest(changes=changes), self.assertRaises(ValueError):
                 edited_rules(self.rules, {**self.form, **changes})
