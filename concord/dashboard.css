@@ -1,0 +1,52 @@
+.dashboard h2 { margin: 0; font-size: 17px; letter-spacing: -.02em }
+.dash-run, .dash-queue { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 22px }
+.dash-run { background: #e9f3f0; border-color: #ccdfda }
+.dash-run > div, .dash-source > div { min-width: 0; overflow-wrap: anywhere }
+.dash-run h2 { margin: 4px 0 }
+.dash-run > div > small:first-child { color: var(--teal); font-weight: 700 }
+.dash-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 13px; border: 1px solid #c6d2cf; border-radius: 6px; background: white; color: #233836; font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; text-align: center }
+.dash-run a { flex-shrink: 0 }
+.dash-counts { gap: 12px; flex-wrap: wrap }
+.dash-counts a { min-width: 110px; color: var(--muted); font-weight: 500 }
+.dash-counts a b { color: #20312f }
+.dash-columns { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, 1fr); align-items: start; gap: 14px }
+.dash-side { display: grid; gap: 14px; min-width: 0 }
+.dash-panel-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; min-height: 60px; padding: 15px 18px; border-bottom: 1px solid var(--line) }
+.dash-figure .dash-panel-head { display: block }
+.dash-figure h2 { margin-bottom: 3px }
+.dash-panel-head a { font-size: 12px }
+.results-chart { display: block; margin: 16px 12px 4px; width: calc(100% - 24px); height: auto }
+.results-chart text { font: 11px system-ui, sans-serif; text-anchor: middle; fill: #475b57 }
+.results-chart .chart-number { font-weight: 650; fill: #263a35 }
+.chart-grid { fill: none; stroke: #e9eeec; stroke-width: 1 }
+.chart-total { fill: #859796 }
+.chart-accepted { fill: #23724f }
+.chart-review { fill: #725c8f }
+.chart-unmatched { fill: #a5b0ae }
+.dash-source { padding: 14px 18px; border-top: 1px solid #edf1ef; overflow-wrap: anywhere }
+.dash-source:first-of-type { border-top: 0 }
+.dash-source small { margin-bottom: 3px }
+.dash-queue { flex-wrap: wrap; padding: 18px; background: #f1edf6; border-color: #dfd6e7 }
+.dash-queue > div { flex: 1 1 120px }
+.dash-queue small { margin-top: 6px }
+.dash-history { overflow: hidden }
+.history-filters { display: flex; padding: 15px; flex-wrap: wrap; align-items: center; gap: 8px }
+.history-filters input, .history-filters select { font: inherit; font-size: 12px; color: #243532; background: white; border: 1px solid #c6d2cf; border-radius: 6px; padding: 8px 10px; min-height: 36px; min-width: 0 }
+.history-filters input { flex: 1 1 210px }
+.history-filters a { padding: 6px; font-size: 12px }
+.dash-history table { min-width: 650px; font-size: 12px }
+.dash-history tbody th, .dash-history td { font: inherit; text-transform: none; letter-spacing: normal; background: white; overflow-wrap: anywhere; padding: 14px 12px }
+.dash-history tbody th { font-weight: 650; color: #293b37 }
+.dash-history td:nth-child(3) { min-width: 95px }
+.dash-history td:last-child a { white-space: nowrap }
+.dash-empty { padding: 18px }
+@media (max-width: 960px) {
+  .dash-columns { grid-template-columns: 1fr }
+  .dash-side { grid-template-columns: repeat(auto-fit, minmax(min(232px, 100%), 1fr)) }
+}
+@media (max-width: 520px) {
+  .dash-run { flex-direction: column; align-items: flex-start; gap: 10px }
+  .dash-counts { display: grid; grid-template-columns: 1fr 1fr }
+  .dash-counts a { min-width: 0 }
+  .history-filters input { flex-basis: 100% }
+}

@@ -1,0 +1,8 @@
+{
+  "left_id": "registry.person_id",
+  "right_id": "directory.key",
+  "fields": [
+    {"left": "registry.name", "right": "directory.label", "mode": "text", "weight": 70},
+    {"left": "registry.contacts.email", "right": "directory.mail", "mode": "exact", "weight": 30}
+  ]
+}

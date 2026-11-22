@@ -1,0 +1,14 @@
+__pycache__/
+.venv/
+/local-runs/
+*.review.sqlite3
+*.review.sqlite3-journal
+concord-diagnostics-*.sqlite3
+.concord-profiles/
+.env
+.env.*
+.DS_Store
+/result.jsonl
+/*-result.jsonl
+/*-source.json
+/selection.json

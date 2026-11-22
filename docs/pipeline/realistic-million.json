@@ -1,0 +1,234 @@
+{
+  "ground_truth_sha256": "d362443344cb7d9d9c8baf78190b1de3b5ce7ba4a1671bb5e672074571c3581c",
+  "expected_pairs": 850000,
+  "persons_in_both": 800000,
+  "extra_right_duplicates": 50000,
+  "quality": {
+    "left": {
+      "rows": 1000000,
+      "missing_email": 55335,
+      "email_domain_typos": 23260
+    },
+    "right": {
+      "rows": 1000000,
+      "missing_email": 110557,
+      "email_domain_typos": 72411
+    },
+    "left_names_shared_by_different_people": 241695,
+    "left_people_with_shared_name": 824162
+  },
+  "strict_rules": {
+    "left_id": "id",
+    "right_id": "id",
+    "fields": [
+      {
+        "left": "full_name",
+        "right": "full_name",
+        "mode": "text",
+        "weight": 70,
+        "block_on_conflict": true
+      },
+      {
+        "left": "email",
+        "right": "email",
+        "mode": "exact",
+        "weight": 30,
+        "block_on_conflict": true
+      }
+    ],
+    "review": 65,
+    "accept": 66.82,
+    "block_limit": 64
+  },
+  "relaxed_rules": {
+    "left_id": "id",
+    "right_id": "id",
+    "fields": [
+      {
+        "left": "full_name",
+        "right": "full_name",
+        "mode": "text",
+        "weight": 70,
+        "block_on_conflict": true
+      },
+      {
+        "left": "email",
+        "right": "email",
+        "mode": "exact",
+        "weight": 30,
+        "block_on_conflict": false
+      }
+    ],
+    "review": 65,
+    "accept": 66.82,
+    "block_limit": 64
+  },
+  "email_blocks": {
+    "true_by_status": {
+      "accepted": 290322,
+      "review": 88202,
+      "below_threshold": 462175,
+      "no_candidate": 9301
+    },
+    "false_by_status": {
+      "accepted": 936,
+      "review": 4995,
+      "below_threshold": 2896298
+    },
+    "true_accepted": 290322,
+    "false_accepted": 936,
+    "true_not_automatically_accepted": 559678,
+    "true_not_shown": 471476,
+    "precision": 0.996786354366232,
+    "recall": 0.34155529411764707
+  },
+  "email_score_only": {
+    "true_by_status": {
+      "accepted": 301976,
+      "review": 76548,
+      "below_threshold": 462175,
+      "no_candidate": 9301
+    },
+    "false_by_status": {
+      "accepted": 5931,
+      "below_threshold": 2896298
+    },
+    "true_accepted": 301976,
+    "false_accepted": 5931,
+    "true_not_automatically_accepted": 548024,
+    "true_not_shown": 471476,
+    "precision": 0.9807376902766095,
+    "recall": 0.35526588235294115
+  },
+  "true_transitions": {
+    "accepted -> accepted": 290322,
+    "review -> review": 76548,
+    "below_threshold -> below_threshold": 462175,
+    "review -> accepted": 11654,
+    "no_candidate -> no_candidate": 9301
+  },
+  "new_false_accepted": 4995,
+  "examples": {
+    "true_below_threshold": {
+      "left_id": "0773867",
+      "right_id": 1000005,
+      "score": 31.3,
+      "fields": [
+        {
+          "field": "full_name",
+          "left": [
+            "Соловьёва Галина Степановна"
+          ],
+          "right": [
+            "Соловьёва Галина Степановна"
+          ]
+        },
+        {
+          "field": "email",
+          "left": [
+            "sam819097@post.tset"
+          ],
+          "right": [
+            "sam819097@post.test"
+          ]
+        }
+      ]
+    },
+    "gained_true": {
+      "left_id": "0265711",
+      "right_id": 1000009,
+      "score": 70.0,
+      "fields": [
+        {
+          "field": "full_name",
+          "left": [
+            "Русаков-Петухов Александр Егорович"
+          ],
+          "right": [
+            "Русаков-Петухов Александр Егорович"
+          ]
+        },
+        {
+          "field": "email",
+          "left": [
+            "margo285711@post.test"
+          ],
+          "right": [
+            "margo285711@post.tset"
+          ]
+        }
+      ]
+    },
+    "true_no_candidate": {
+      "left_id": "0487165",
+      "right_id": 1000023,
+      "score": null,
+      "fields": [
+        {
+          "field": "full_name",
+          "left": [
+            "Лебедев Виктор Данилович"
+          ],
+          "right": [
+            "Леедев Виктор Данилович"
+          ]
+        },
+        {
+          "field": "email",
+          "left": [
+            "vera698828@post.test"
+          ],
+          "right": []
+        }
+      ]
+    },
+    "false_in_both": {
+      "left_id": "0000009",
+      "right_id": 1057129,
+      "score": 70.0,
+      "fields": [
+        {
+          "field": "full_name",
+          "left": [
+            "Жуков Даниил Валерьевич"
+          ],
+          "right": [
+            "Жуков Даниил Валерьевич"
+          ]
+        },
+        {
+          "field": "email",
+          "left": [],
+          "right": [
+            "marina914578@inbox.test"
+          ]
+        }
+      ]
+    },
+    "gained_false": {
+      "left_id": "0000160",
+      "right_id": 1390760,
+      "score": 70.0,
+      "fields": [
+        {
+          "field": "full_name",
+          "left": [
+            "Максимов Сергей Егорович"
+          ],
+          "right": [
+            "Максимов Сергей Егорович"
+          ]
+        },
+        {
+          "field": "email",
+          "left": [
+            "nick562746@example.test"
+          ],
+          "right": [
+            "marina100909@example.test"
+          ]
+        }
+      ]
+    }
+  }
+}
